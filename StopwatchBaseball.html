@@ -1,0 +1,1021 @@
+<style>
+body{
+  background-color: lightgray;
+  font-family: Trebuchet MS;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  /* border: 2px solid black */
+}
+
+#clock{
+  height: 20%;
+  border: 2px solid black;
+  border-left: 0px !important;
+  border-bottom: 0px !important;
+  text-align: center;
+  font-size: 5em;
+  background-color: white;
+}
+#scoreboard{
+  float: left;
+  text-align: center;
+  width: 100%;
+  height: 20%;
+  background-color: gray;
+  margin-bottom: 2px solid black
+}
+#scoreboard table{
+  border-collapse: separate;
+  margin-left: 27.5%;
+  width: 45%;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+.inn{
+  border: 1px solid black;
+  width: 10%;
+  background-color: white;
+  text-align: center;
+  font-size: 4vh;
+}
+.innStart{
+  font-size: 25px;
+  text-align: center
+}
+.innStart img{
+  width: 4vh  !important;
+  height: 5vh !important
+}
+
+.button{
+  border: 2px solid black;
+  border-left: 0px !important;
+  text-align: center;
+  font-size: 5em;
+  height: 59.7%;
+  margin: 0px;
+}
+.button:hover{
+  cursor: pointer;
+}
+#start{
+  background-color: green;
+  color: white
+}
+#stop{
+  background-color: red;
+  color: white
+}
+
+#field{
+  float:left;
+  clear: both;
+  height: 80%;
+}
+#stopwatch{
+  float:left;
+  margin: 0px
+}
+.over{
+  position: absolute;
+  left: 30%;
+  width: 40%;
+  top: 20%;
+  background-color: rgb(112, 128, 144);
+  border: 1px solid black;
+  color: white;
+  font-size: 80px;
+  text-align: center
+}
+#dull{
+  background-color: lightgray;
+  opacity: 100%;
+  position: absolute;
+  width: 105%;
+  height: 103%
+}
+#pickWord{
+  font-size: 50px;
+  margin-bottom: 3%
+}
+
+#difficulty{
+  width: 100%;
+  margin-top: 10px;
+}
+.diffDiv{
+  margin-top: 5%;
+  width: 32%;
+  font-size: 60px;
+  float: left;
+  text-align: center;
+  cursor: pointer;
+}
+
+#diffEasy{
+  color: green
+}
+#diffEasy:hover{
+  color: white;
+  background-color: green
+}
+
+#diffMed{
+  color: black
+}
+#diffMed:hover{
+  color: white;
+  background-color: black
+}
+
+#diffHard{
+  color: red
+}
+#diffHard:hover{
+  color: white;
+  background-color: red
+}
+
+.diff{
+  border: 1px solid black;
+  background-color: white;
+  text-align: center;
+  width: 80%;
+  margin-left: auto;
+}
+
+#continue{
+  margin-top: 5%;
+  font-size: 80px;
+  border-radius: 20px;
+  background-color: green;
+  color: white;
+  clear: both
+  border: 1px solid black;
+  padding: 20px;
+}
+#continue:hover{
+  box-shadow: 0px 14px 28px gray;
+  cursor: pointer
+}
+#teamDiv{
+  position: absolute;
+  width: 99.5%;
+  top: 10px;
+  text-align: center;
+  padding: 3px;
+
+}
+#teamTable{
+  border-collapse: separate;
+  margin-left: 2%;
+  text-align: center;
+  margin-left: auto;
+  border: 1px solid black;
+  background-color: green;
+}
+.myTeam, .oppTeam{
+  color: black;
+  background-color: white;
+  border: 1px solid black;
+  font-size: 18px;
+  cursor: pointer;
+}
+.myTeam:hover, .oppTeam:hover, .teamSelected{
+  background-color: green;
+  border: 1px solid white;
+  color: white
+}
+
+.teamHead{
+  color: white;
+  font-size: 22px;
+  width: 2%
+}
+
+.again{
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline
+}
+
+#instruct{
+  position: absolute;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 18px;
+  color: white;
+  right: 0;
+  top: 0;
+  margin: 2px
+}
+#instructions{
+  position: absolute;
+  width: 50%;
+  right: 25%;
+  top: 30%;
+  font-size: 18px;
+  background-color: rgb(112, 128, 144);
+  color: white;
+  border-radius: 10px;
+  padding: 5px
+}
+
+</style>
+
+<html>
+<body>
+<div id = scoreboard>
+<table>
+<tr>
+  <th> </th>
+  <th class = num> 1 </th>
+  <th class = num> 2 </th>
+  <th class = num> 3 </th>
+  <th class = num> 4 </th>
+  <th class = num> 5 </th>
+  <th class = num> 6 </th>
+  <th class = num> 7 </th>
+  <th class = num> 8 </th>
+  <th class = num> 9 </th>
+  <th class = num> Tot </th>
+</tr>
+<tr id = user>
+  <td class = innStart id = userName>  </td>
+  <td id = user1 class = inn> </td>
+  <td id = user2 class = inn> </td>
+  <td id = user3 class = inn> </td>
+  <td id = user4 class = inn> </td>
+  <td id = user5 class = inn> </td>
+  <td id = user6 class = inn> </td>
+  <td id = user7 class = inn> </td>
+  <td id = user8 class = inn> </td>
+  <td id = user9 class = inn> </td>
+  <td id = userTot class = 'innTot inn'> 0 </td>
+</tr>
+<tr id = cpu>
+  <td class = innStart id = cpuName>  </td>
+  <td id = cpu1 class = inn> </td>
+  <td id = cpu2 class = inn> </td>
+  <td id = cpu3 class = inn> </td>
+  <td id = cpu4 class = inn> </td>
+  <td id = cpu5 class = inn> </td>
+  <td id = cpu6 class = inn> </td>
+  <td id = cpu7 class = inn> </td>
+  <td id = cpu8 class = inn> </td>
+  <td id = cpu9 class = inn> </td>
+  <td id = cpuTot class = 'innTot inn'> 0 </td>
+</tr>
+</table>
+<span id = instruct> Instructions </span>
+</div>
+<div  id = dull> </div>
+<div hidden id = win class = over> You Win! <br> <span class = again> Play Again? </span> </div>
+<div hidden id = lose class = over> You Lose! <br> <span class = again> Play Again? </span></div>
+<div hidden id = tie class = over> You Tied! <br> <span class = again> Play Again? </span> </div>
+<div id = instructions hidden>
+  Click the START/STOP button or use the space bar to control the timer <br><br>
+  Bases are awarded according to the following scale:
+  <ul>
+    <li> 0.97: Single </li>
+    <li> 0.98: Double </li>
+    <li> 0.99: Triple </li>
+    <li> 1.00: Home Run </li>
+    <li> Anything Else: Out </li>
+  </ul>
+</div>
+
+<div hidded id = teamDiv>
+  <!-- <div id = pickWord> Select Teams </div> -->
+  <table id = teamTable>
+    <tr>
+      <td class = teamHead> You: </td>
+      <td class = myTeam data-team = 'ARI'>  </td>
+      <td class = myTeam data-team = 'ATL'> </td>
+      <td class = myTeam data-team = 'BAL'> </td>
+      <td class = myTeam data-team = 'BOS'> </td>
+      <td class = myTeam data-team = 'CHC'> </td>
+      <td class = myTeam data-team = 'CIN'> </td>
+      <td class = myTeam data-team = 'CLE'> </td>
+      <td class = myTeam data-team = 'COL'> </td>
+      <td class = myTeam data-team = 'CWS'> </td>
+      <td class = myTeam data-team = 'DET'> </td>
+      <td class = myTeam data-team = 'HOU'> </td>
+      <td class = myTeam data-team = 'KC'> </td>
+      <td class = myTeam data-team = 'LAA'> </td>
+      <td class = myTeam data-team = 'LAD'> </td>
+      <td class = myTeam data-team = 'MIA'> </td>
+      <td class = myTeam data-team = 'MIL'> </td>
+      <td class = myTeam data-team = 'MIN'> </td>
+      <td class = myTeam data-team = 'NYM'> </td>
+      <td class = myTeam data-team = 'NYY'> </td>
+      <td class = myTeam data-team = 'OAK'> </td>
+      <td class = myTeam data-team = 'PHI'> </td>
+      <td class = myTeam data-team = 'PIT'> </td>
+      <td class = myTeam data-team = 'SD'> </td>
+      <td class = myTeam data-team = 'SEA'> </td>
+      <td class = myTeam data-team = 'SF'> </td>
+      <td class = myTeam data-team = 'STL'> </td>
+      <td class = myTeam data-team = 'TB'> </td>
+      <td class = myTeam data-team = 'TEX'> </td>
+      <td class = myTeam data-team = 'TOR'> </td>
+      <td class = myTeam data-team = 'WSH'> </td>
+    </tr>
+    <tr>
+      <td class = teamHead> Them: </td>
+      <td class = oppTeam data-team = 'ARI'>  </td>
+      <td class = oppTeam data-team = 'ATL'> </td>
+      <td class = oppTeam data-team = 'BAL'> </td>
+      <td class = oppTeam data-team = 'BOS'> </td>
+      <td class = oppTeam data-team = 'CHC'> </td>
+      <td class = oppTeam data-team = 'CIN'> </td>
+      <td class = oppTeam data-team = 'CLE'> </td>
+      <td class = oppTeam data-team = 'COL'> </td>
+      <td class = oppTeam data-team = 'CWS'> </td>
+      <td class = oppTeam data-team = 'DET'> </td>
+      <td class = oppTeam data-team = 'HOU'> </td>
+      <td class = oppTeam data-team = 'KC'> </td>
+      <td class = oppTeam data-team = 'LAA'> </td>
+      <td class = oppTeam data-team = 'LAD'> </td>
+      <td class = oppTeam data-team = 'MIA'> </td>
+      <td class = oppTeam data-team = 'MIL'> </td>
+      <td class = oppTeam data-team = 'MIN'> </td>
+      <td class = oppTeam data-team = 'NYM'> </td>
+      <td class = oppTeam data-team = 'NYY'> </td>
+      <td class = oppTeam data-team = 'OAK'> </td>
+      <td class = oppTeam data-team = 'PHI'> </td>
+      <td class = oppTeam data-team = 'PIT'> </td>
+      <td class = oppTeam data-team = 'SD'> </td>
+      <td class = oppTeam data-team = 'SEA'> </td>
+      <td class = oppTeam data-team = 'SF'> </td>
+      <td class = oppTeam data-team = 'STL'> </td>
+      <td class = oppTeam data-team = 'TB'> </td>
+      <td class = oppTeam data-team = 'TEX'> </td>
+      <td class = oppTeam data-team = 'TOR'> </td>
+      <td class = oppTeam data-team = 'WSH'> </td>
+    </tr>
+  </table>
+  <div hidden id = difficulty>
+    <div class = diffDiv> <div id = diffEasy data-col = green data-diff = 3 class = diff> Easy </div> </div>
+    <div class = diffDiv> <div id = diffMed data-col = black data-diff = 6 class = diff> Medium </div> </div>
+    <div class = diffDiv> <div id = diffHard data-col = red  data-diff = 9 class = diff> Hard </div>  </div>
+  </div>
+    <button hidden id = continue> Play Ball </button>
+</div>
+<svg id = field> </svg>
+<div id = stopwatch>
+  <div id = clock>0.00</div>
+  <div class = button id = start> START </div>
+  <div class = button id = stop hidden> STOP </div>
+</div>
+</body>
+</html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+<script src="https://unpkg.com/d3-interpolate-path/build/d3-interpolate-path.min.js"></script>
+
+<script>
+mlbStaticTeamLogoNum = {
+                              ARI: 109,
+                              ATL: 144,
+                              BAL: 110,
+                              BOS: 111,
+                              CHC: 112,
+                              CIN: 113,
+                              CLE: 114,
+                              COL: 115,
+                              CWS: 145,
+                              DET: 116,
+                              HOU: 117,
+                              KC: 118,
+                              LAA: 108,
+                              LAD: 119,
+                              MIA: 146,
+                              MIL: 158,
+                              MIN: 142,
+                              NYM: 121,
+                              NYY: 147,
+                              OAK: 133,
+                              PHI: 143,
+                              PIT: 134,
+                              SD: 135,
+                              SEA: 136,
+                              SF: 137,
+                              STL: 138,
+                              TB: 139,
+                              TEX: 140,
+                              TOR: 141,
+                              WSH: 120
+              };
+
+$('#clock').css('width', (window.innerWidth-6.5 - parseFloat($('#field').css('height').replace('px',''))) +'px')
+$('.oppTeam, .myTeam').each(function(){
+  $(this).append($('<img>',{src:'https://www.mlbstatic.com/team-logos/'+mlbStaticTeamLogoNum[$(this).data('team')]+'.svg' ,style:'width: 20px;'}))
+})
+$('.button').each(function(){
+  $(this).css('line-height', $(this).css('height'))
+})
+$('#clock').css('line-height', $('#clock').css('height'))
+
+$('#instruct').mouseover(function(){
+  $('#instructions').fadeIn('fast')
+}).mouseout(function(){
+  $('#instructions').fadeOut('fast')
+})
+
+$(window).resize(function() {
+  $('#clock').css('width', (window.innerWidth-6.5 - parseFloat($('#field').css('height').replace('px',''))) +'px')
+  $('.button').each(function(){
+    $(this).css('line-height', $(this).css('height'))
+  })
+  $('#clock').css('line-height', $('#clock').css('height'))
+})
+
+$('#stop').hide()
+var vis = 'start'
+
+var outs = 0
+var inning = 1
+var batter = 0
+var baseScale = d3.scaleOrdinal().domain([.97, .98, .99, 1]).range([1, 2, 3, 4])
+var batters = {
+  '1': {'batter': '1', 'base': 0},
+  '2': {'batter': '2', 'base': 0},
+  '3': {'batter': '3', 'base': 0},
+  '4': {'batter': '4', 'base': 0},
+  '5': {'batter': '5', 'base': 0},
+  '6': {'batter': '6', 'base': 0},
+  '7': {'batter': '7', 'base': 0},
+  '8': {'batter': '8', 'base': 0},
+  '9': {'batter': '9', 'base': 0}
+}
+var scores = {
+  '1': {'player': 0, 'cpu': 0},
+  '2': {'player': 0, 'cpu': 0},
+  '3': {'player': 0, 'cpu': 0},
+  '4': {'player': 0, 'cpu': 0},
+  '5': {'player': 0, 'cpu': 0},
+  '6': {'player': 0, 'cpu': 0},
+  '7': {'player': 0, 'cpu': 0},
+  '8': {'player': 0, 'cpu': 0},
+  '9': {'player': 0, 'cpu': 0},
+}
+
+var moveBases = [
+  {'1': homeFirst, '2': homeSecond, '3': homeThird, '4': homeRun},
+  {'1': firstSecond, '2': firstThird, '3': firstHome, '4': firstHome},
+  {'1': secondThird, '2': secondHome, '3': secondHome, '4': secondHome},
+  {'1': thirdHome, '2': thirdHome, '3': thirdHome, '4': thirdHome}
+]
+
+$('.again').click(function(){
+  $('.over').hide()
+  $('#dull').hide()
+  $('.inn').text('')
+  $('.innTot').text('0')
+  $('#clock').text('0.00')
+  for(i = 0; i < 9; ++i){
+    scores[String(i)] = {'player': 0, 'cpu': 0};
+  }
+  for(j = 0; j < 9; ++j){
+    batters[String(j+1)] = {'batter': String(j+1), 'base': 0};
+  }
+  vis = 'start'
+  outs = 0
+  inning = 1
+  batter = 0
+  batterUp('1')
+})
+
+
+function printTime(start){
+  interval =  setInterval(function(){
+      var time = new Date().getTime() - start
+      $('#clock').text(d3.format('.2f')(time/1000))
+    }, 10, start);
+}
+
+function moveRunner(batter, outcome){
+  var pre = batters[batter]['base']
+  var post = pre + outcome
+  moveBases[pre][String(outcome)](String(batter))
+  if(post >= 4){
+    addScore(inning, batter)
+    batters[batter]['base'] = 0
+  }else{
+    batters[batter]['base'] = post
+  }
+}
+function baseOut(up, outcome){
+  moveRunner(up, outcome)
+  for(j = 0; j < 9; ++j){
+    if(String(j+1) != up)
+    if(batters[String(j+1)]['base']>0){
+      moveRunner(String(j+1), outcome)
+    }
+  }
+}
+function addScore(inning, user){
+  scoreVal = scores[inning]['player'] + 1
+  scores[inning]['player'] = scoreVal
+  $('#user'+inning).text(scoreVal)
+  $('#userTot').text(parseFloat($('#userTot').text()) + 1)
+}
+
+function gameOver(){
+  vis = 'over'
+  if(parseFloat($('#userTot').text()) > parseFloat($('#cpuTot').text())){
+    $('#win').slideToggle('slow')
+  }else if(parseFloat($('#userTot').text()) < parseFloat($('#cpuTot').text())){
+    $('#lose').slideToggle('slow')
+  }else{
+    $('#tie').slideToggle('slow')
+  }
+  $('#dull').css('opacity', '75%')
+  $('#dull').show()
+  inning = 0;
+  outs = 0;
+}
+
+
+
+
+
+var width = $('#field').css('height').replace('px','')
+var height = $('#field').css('height').replace('px','')
+var margins = {left: 10, right: 10, top: 10, bottom: 10}
+var xScale = d3.scaleLinear().domain([-100, 100]).range([0,width])
+var yScale = d3.scaleLinear().domain([180, -20]).range([0,height])
+
+
+ fieldSVG = d3.select('#field')
+     .attr('height', '100%')
+     .style('border', '2px solid black')
+     .style('background-color', '#95d1ba')
+     .attr("preserveAspectRatio", "xMinYMin meet")
+     .classed("svg-content", true)
+     .attr("viewBox", "0 0 " + width + " " + height)
+
+ var field =
+     "M " + xScale(0) + " " + yScale(-40) + " " +
+     "L " + xScale(50) + " " + yScale(-20) + " " +
+     "L " + xScale(237) + " " + yScale(222) + " " +
+     "L " + xScale(145) + " " + yScale(329) + " " +
+     "L " + xScale(68) + " " + yScale(370) + " " +
+     "L " + xScale(0) + " " + yScale(390) + " " +
+     "L " + xScale(-68) + " " + yScale(370) + " " +
+     "L " + xScale(-145) + " " + yScale(329) + " " +
+     "L " + xScale(-237) + " " + yScale(222) + " " +
+     "L " + xScale(-50) + " " + yScale(-20) + " " +
+     "L " + xScale(0) + " " + yScale(-40)
+
+ var infield_dirt =
+     "M " + xScale(85) + " " + yScale(80) + " " +
+     "L " + xScale(0) + " " + yScale(130) + " " +
+     "L " + xScale(-85) + " " + yScale(80) + " " +
+     "L " + xScale(0) + " " + yScale( -5) + " " +
+     "L " + xScale(85) + " " + yScale(80) + " " +
+     "C " + xScale(85) + " " + yScale(170) + " " + xScale(-85) + " " + yScale(170) + " " + xScale(-85) + " " + yScale(80) + " " +
+     "L " + xScale(0) + " " + yScale(-5)
+
+ var infield_grass =
+     "M " + xScale(0) + " " + yScale(5) + " " +
+     "L " + xScale(55) + " " + yScale(60) + " " +
+     "L " + xScale(0) + " " + yScale(115) + " " +
+     "L " + xScale(-55) + " " + yScale(60)
+
+
+ var foul_lines =
+     "M " + xScale(-239) + " " + yScale(239) + " " +
+     "L " + xScale(0) + " " + yScale(0) + " " +
+     "L " + xScale(239) + " " + yScale(239) + " " +
+     "L " + xScale(0) + " " + yScale(0)
+
+
+ fieldSVG.append("path")
+     .attr("id", "field-inner-outline")
+     .attr("d", field)
+     .style("fill", "#95d1ba")
+     .style("stroke", "#95d1ba");
+ fieldSVG.append("path")
+     .attr("id", "field-infield-dirt")
+     .attr("d", infield_dirt)
+     .style("fill", "#ded8cd");
+ fieldSVG.append("path")
+     .attr("id", "#72ffaa")
+     .attr("d", infield_grass)
+     .style("fill", "#95d1ba");
+ fieldSVG.append("path")
+     .attr("id", "field-foul-line")
+     .attr("d", foul_lines)
+     .style("stroke", "white")
+     .style('stroke-width', 2);
+
+//  https://stackoverflow.com/questions/17625663/javascript-how-to-turn-a-dictionary-into-a-list-of-elements
+ var battersList = []
+
+ for (var key in batters) {
+     if (batters.hasOwnProperty(key)) {
+         battersList.push([key, batters[key]]);
+     }
+ }
+
+fieldSVG.append('circle')
+  .attr('id', 'out1')
+  .attr('class', 'outCirc')
+  .attr('cx', width-20)
+  .attr('cy', 15)
+  .attr('r', '11')
+  .style('stroke', 'red')
+  .style('stroke-width', '2')
+  .style('fill', 'none')
+
+fieldSVG.append('circle')
+  .attr('id', 'out2')
+  .attr('class', 'outCirc')
+  .attr('cx', width-50)
+  .attr('cy', 15)
+  .attr('r', '11')
+  .style('stroke', 'red')
+  .style('stroke-width', '2')
+  .style('fill', 'none')
+
+player = fieldSVG.selectAll('.players').data(battersList, function(d){return d[1].batter})
+  .enter().append('g')
+
+circles =
+  player.append('circle')
+  .attr('id', function(d){ return 'batter'+d[1].batter})
+  .attr('cx', width - 20)
+  .attr('cy', function(d, i){ return yScale(-10) - i*25})
+  .attr('r', '11')
+  .style('fill', '#c1b1e0')
+  .style('stroke', 'black')
+
+
+
+// text =
+//   player.append('text')
+//   .attr('id', function(d){ return 'text'+d[1].batter})
+//   .text(function(d){return d[0]})
+//   .attr('x', width - 23)
+//   .attr('y', function(d, i){ return yScale(-11.5) - i*25})
+//   .style('stroke', 'black')
+//   .style('font-size', '12px')
+
+
+function batterUp(batter){
+  curBat = d3.select('#batter'+batter)
+  curBat
+    .transition().duration(500)
+    .attr('cx', xScale(0))
+    .attr('cy', yScale(0))
+  // curBat = d3.select('#text'+batter)
+  // curBat
+  //   .transition().duration(500)
+  //   .attr('x', xScale(0))
+  //   .attr('y', yScale(0))
+  //   .attr('transform', 'translate(0,2)')
+  //   .style('text-anchor', 'middle')
+}
+
+function batterOut(batter){
+  outBatter = d3.select('#batter'+batter)
+  outBatter
+    .transition().duration(500)
+    .attr('cx', width - 20)
+    .attr('cy', yScale(-10) - (parseFloat(batter)-1)*25)
+}
+
+
+function homeFirst(batter){
+  runner = d3.select('#batter'+batter)
+  runner
+    .transition().duration(500)
+    .attr('cx', xScale(63.63))
+    .attr('cy', yScale(63.63))
+}
+
+function homeSecond(batter){
+  runner = d3.select('#batter'+batter)
+  runner
+    .transition().duration(500)
+    .attr('cx', xScale(63.63))
+    .attr('cy', yScale(63.63))
+    .transition().duration(500)
+    .attr('cx', xScale(0))
+    .attr('cy', yScale(127.2))
+}
+
+function homeThird(batter){
+  runner = d3.select('#batter'+batter)
+  runner
+    .transition().duration(500)
+    .attr('cx', xScale(63.63))
+    .attr('cy', yScale(63.63))
+    .transition().duration(500)
+    .attr('cx', xScale(0))
+    .attr('cy', yScale(127.2))
+    .transition().duration(500)
+    .attr('cx', xScale(-63.63))
+    .attr('cy', yScale(63.63))
+}
+
+function homeRun(batter){
+  runner = d3.select('#batter'+batter+', #circle'+batter)
+  runner
+    .transition().duration(500)
+    .attr('cx', xScale(63.63))
+    .attr('cy', yScale(63.63))
+    .transition().duration(500)
+    .attr('cx', xScale(0))
+    .attr('cy', yScale(127.2))
+    .transition().duration(500)
+    .attr('cx', xScale(-63.63))
+    .attr('cy', yScale(63.63))
+    .transition().duration(500)
+    .attr('cx', xScale(0))
+    .attr('cy', yScale(0))
+    .transition().duration(500)
+    .attr('cx', width - 20)
+    .attr('cy', yScale(-10) - (parseFloat(batter)-1)*25)
+}
+
+
+function firstSecond(batter){
+  runner = d3.select('#batter'+batter)
+  runner
+    .transition().duration(500)
+    .attr('cx', xScale(0))
+    .attr('cy', yScale(127.2))
+}
+
+function firstThird(batter){
+  runner = d3.select('#batter'+batter)
+  runner
+    .transition().duration(500)
+    .attr('cx', xScale(0))
+    .attr('cy', yScale(127.2))
+    .transition().duration(500)
+    .attr('cx', xScale(-63.63))
+    .attr('cy', yScale(63.63))
+}
+
+function firstHome(batter){
+  runner = d3.select('#batter'+batter)
+  runner
+    .transition().duration(500)
+    .attr('cx', xScale(0))
+    .attr('cy', yScale(127.2))
+    .transition().duration(500)
+    .attr('cx', xScale(-63.63))
+    .attr('cy', yScale(63.63))
+    .transition().duration(500)
+    .attr('cx', xScale(0))
+    .attr('cy', yScale(0))
+    .transition().duration(500)
+    .attr('cx', width - 20)
+    .attr('cy', yScale(-10) - (parseFloat(batter)-1)*25)
+}
+
+function secondThird(batter){
+  runner = d3.select('#batter'+batter)
+  runner
+    .transition().duration(500)
+    .attr('cx', xScale(-63.63))
+    .attr('cy', yScale(63.63))
+}
+
+function secondHome(batter){
+  runner = d3.select('#batter'+batter)
+  runner
+    .transition().duration(500)
+    .attr('cx', xScale(-63.63))
+    .attr('cy', yScale(63.63))
+    .transition().duration(500)
+    .attr('cx', xScale(0))
+    .attr('cy', yScale(0))
+    .transition().duration(500)
+    .attr('cx', width - 20)
+    .attr('cy', yScale(-10) - (parseFloat(batter)-1)*25)
+}
+
+function thirdHome(batter){
+  runner = d3.select('#batter'+batter)
+  runner
+  .transition().duration(500)
+  .attr('cx', xScale(0))
+  .attr('cy', yScale(0))
+    .transition().duration(500)
+    .attr('cx', width - 20)
+    .attr('cy', yScale(-10) - (parseFloat(batter)-1)*25)
+}
+
+
+
+$('.myTeam').click(function(){
+  $('.myTeam').removeClass('teamSelected')
+  $(this).addClass('teamSelected')
+  $('#userName').html($(this).html())
+  checkSelected()
+})
+
+$('.oppTeam').click(function(){
+  $('.oppTeam').removeClass('teamSelected')
+  $(this).addClass('teamSelected')
+  $('#cpuName').html($(this).html())
+  checkSelected()
+})
+
+diff = 0
+$('.diff').click(function(){
+  $('#diffEasy').css('color', 'green').css('background-color', 'white')
+  $('#diffMed').css('color', 'black').css('background-color', 'white')
+  $('#diffHard').css('color', 'red').css('background-color', 'white')
+  $(this).css('color', 'white').css('background-color', $(this).data('col'))
+  diff = $(this).data('diff')
+  console.log(diff)
+  diffSelected()
+})
+
+function checkSelected(){
+  if($('.teamSelected').length == 2){
+    $('#difficulty').show()
+  }
+  if($('.teamSelected').length < 2){
+    $('#difficulty').hide()
+  }
+}
+function diffSelected(){
+  if(diff > 0){
+    $('#continue').show()
+  }
+  if(diff == 0){
+    $('#continue').hide()
+  }
+}
+
+$('#continue').click(function(){
+  startGame()
+})
+
+function startGame(){
+
+  $('#start').click(function(){
+    vis = 'stop'
+    $(this).hide()
+    $('#stop').show()
+    start = new Date().getTime()
+    printTime(start)
+  })
+
+
+  $('body').keyup(function(e){
+    if(vis != 'over'){
+     if(e.keyCode == 32){
+         if(vis == 'start'){
+           vis = 'stop'
+           $('#start').hide()
+           $('#stop').show()
+           start = new Date().getTime()
+           printTime(start)
+         }else if(vis == 'stop'){
+           vis = 'start'
+           $('#stop').hide()
+           $('#start').show()
+           clearInterval(interval)
+           if(batter<9){
+             batter = batter + 1
+           }else{
+             batter = 1
+           }
+           if(batter<9){
+             nextBatter = batter + 1
+           }else{
+             nextBatter = 1
+           }
+           outcome = parseFloat($('#clock').text())
+           if([.97,.98,.99,1.00].indexOf(outcome) > -1){
+             baseOut(String(batter), baseScale(outcome))
+             batterUp(nextBatter)
+           } else{
+             outs = outs + 1
+             if(outs == 1 | outs == 2){
+               d3.select('#out'+outs).style('fill', 'red').style('stroke', 'black')
+             }else if(outs == 3){
+               d3.selectAll('.outCirc').style('fill', 'none').style('stroke', 'red')
+             }
+             batterOut(String(batter))
+             if(outs == 3){
+               outs = 0
+               for(j = 0; j < 9; ++j){
+                 batters[String(j+1)] = {'batter': String(j+1), 'base': 0};
+                 batterOut(String(j+1))
+               }
+               if(scores[inning]['player'] == 0){
+                 $('#user'+inning).text('0')
+               }
+               if(inning < 9){
+                 oppScore(inning, diff)
+                 inning = inning + 1
+                 batterUp(nextBatter)
+               }else if(parseFloat($('#cpuTot').text()) <= parseFloat($('#userTot').text())){
+                 oppScore('9', diff)
+                 gameOver()
+               }else{
+                 gameOver()
+               }
+             }else{
+               batterUp(nextBatter)
+             }
+           }
+         }
+     }
+   }
+  });
+
+  $('#stop').click(function(){
+    vis = 'start'
+    $(this).hide()
+    $('#start').show()
+    clearInterval(interval)
+    if(batter<9){
+      batter = batter + 1
+    }else{
+      batter = 1
+    }
+    if(batter<9){
+      nextBatter = batter + 1
+    }else{
+      nextBatter = 1
+    }
+    outcome = parseFloat($('#clock').text())
+    if([.97,.98,.99,1.00].indexOf(outcome) > -1){
+      baseOut(String(batter), baseScale(outcome))
+      batterUp(nextBatter)
+    } else{
+      outs = outs + 1
+      if(outs == 1 | outs == 2){
+        d3.select('#out'+outs).style('fill', 'red').style('stroke', 'black')
+      }else if(outs == 3){
+        d3.selectAll('.outCirc').style('fill', 'none').style('stroke', 'red')
+      }
+      batterOut(String(batter))
+      if(outs == 3){
+        outs = 0
+        for(j = 0; j < 9; ++j){
+          batters[String(j+1)] = {'batter': String(j+1), 'base': 0};
+          batterOut(String(j+1))
+        }
+        if(scores[inning]['player'] == 0){
+          $('#user'+inning).text('0')
+        }
+        if(inning < 9){
+          oppScore(inning, diff)
+          inning = inning + 1
+          batterUp(nextBatter)
+        }else if(parseFloat($('#cpuTot').text()) <= parseFloat($('#userTot').text())){
+          oppScore('9', diff)
+          gameOver()
+        }else{
+          gameOver()
+        }
+      }else{
+        batterUp(nextBatter)
+      }
+    }
+  })
+
+  $('#dull').hide()
+  $('#teamDiv').hide()
+  batterUp('1')
+}
+
+//https://wiki.q-researchsoftware.com/wiki/How_to_Generate_Random_Numbers:_Poisson_Distribution#:~:text=Create%20a%20new%20JavaScript%20Variable,k%2B%2B%3B%20p%20*%3D%20Math.
+function oppScore(inning, diff){
+  console.log(diff)
+  var mean = diff/9;
+
+  var L = Math.exp(-mean);
+  var p = 1.0;
+  var k = 0;
+
+  while (p > L){
+      k++;
+      p *= Math.random()
+  }
+
+  scores[inning]['cpu'] = k-1
+  $('#cpu'+inning).text(k-1)
+  $('#cpuTot').text(parseFloat($('#cpuTot').text()) + (k-1))
+}
+
+
+
+
+
+
+</script>
