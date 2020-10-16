@@ -21,28 +21,30 @@ body{
   float: left;
   text-align: center;
   width: 100%;
-  height: 20%;
-  background-color: gray;
+  height: 150px;
+  background-color: slategray;
   margin-bottom: 2px solid black
 }
+
 #scoreboard table{
-  border-collapse: separate;
-  margin-left: 27.5%;
-  width: 45%;
-  margin-top: 10px;
-  margin-bottom: 15px;
+  border-collapse: collapse;
+  width: 98%;
+  height: 130px;
+  margin-left: 1%;
+  margin-top: 5px;
 }
 .inn{
   border: 1px solid black;
   width: 10%;
   background-color: white;
   text-align: center;
-  font-size: 4vh;
+  font-size: 30px;
 }
 .innStart{
   font-size: 25px;
   text-align: center
 }
+
 .innStart img{
   width: 4vh  !important;
   height: 5vh !important
@@ -86,7 +88,8 @@ body{
   border: 1px solid black;
   color: white;
   font-size: 80px;
-  text-align: center
+  text-align: center;
+  box-shadow: 0px 0px 10px gray
 }
 #dull{
   background-color: lightgray;
@@ -106,7 +109,7 @@ body{
 }
 .diffDiv{
   margin-top: 5%;
-  width: 32%;
+  width: 31%;
   font-size: 60px;
   float: left;
   text-align: center;
@@ -124,6 +127,7 @@ body{
 #diffMed{
   color: black
 }
+
 #diffMed:hover{
   color: white;
   background-color: black
@@ -132,6 +136,7 @@ body{
 #diffHard{
   color: red
 }
+
 #diffHard:hover{
   color: white;
   background-color: red
@@ -146,47 +151,58 @@ body{
 }
 
 #continue{
-  margin-top: 5%;
+  margin-top: 14%;
   font-size: 80px;
   border-radius: 20px;
-  background-color: green;
-  color: white;
-  clear: both
-  border: 1px solid black;
+  background-color: white;
+  color: green;
+  clear: both;
+  border: 3px solid green;
   padding: 20px;
 }
+
 #continue:hover{
-  box-shadow: 0px 14px 28px gray;
-  cursor: pointer
+  box-shadow: 0px 0px 28px gray;
+  cursor: pointer;
+  background-color: green;
+  color: white;
+  border: 3px solid white
 }
+
 #teamDiv{
   position: absolute;
-  width: 99.5%;
+  width: 50%;
   top: 10px;
   text-align: center;
   padding: 3px;
-
 }
 #teamTable{
   border-collapse: separate;
   margin-left: 2%;
   text-align: center;
   margin-left: auto;
-  border: 1px solid black;
-  background-color: green;
+  overflow: scroll;
+  width: 50%;
+}
+
+#teamTable img{
+  width: 30vh  !important;
+  height: 40vh !important;
 }
 .myTeam, .oppTeam{
   color: black;
-  background-color: white;
-  border: 1px solid black;
+  /* background-color: white; */
+  /* border: 1px solid black; */
   font-size: 18px;
   cursor: pointer;
 }
-.myTeam:hover, .oppTeam:hover, .teamSelected{
-  background-color: green;
+.myTeam img:hover, .oppTeam img:hover, .teamSelected img{
+  /* background-color: green; */
   border: 1px solid white;
-  color: white
+  /* color: white */
+  box-shadow: 0px 0px 10px gray inset
 }
+
 
 .teamHead{
   color: white;
@@ -207,8 +223,9 @@ body{
   font-size: 18px;
   color: white;
   right: 0;
-  top: 0;
-  margin: 2px
+  bottom: 0;
+  padding-right: 4px;
+  margin: 2px;
 }
 #instructions{
   position: absolute;
@@ -219,7 +236,21 @@ body{
   background-color: rgb(112, 128, 144);
   color: white;
   border-radius: 10px;
-  padding: 5px
+  padding: 10px;
+  border: 1px solid white;
+  box-shadow: 0px 0px 10px gray
+}
+
+.num{
+  font-size: 30px !important;
+}
+
+.close{
+  float: right;
+  font-size: 40px;
+  padding: 0px;
+  margin: 0px;
+  cursor: pointer
 }
 
 </style>
@@ -227,7 +258,7 @@ body{
 <html>
 <body>
 <div id = scoreboard>
-<table>
+<table id = scoreTable>
 <tr>
   <th> </th>
   <th class = num> 1 </th>
@@ -270,11 +301,12 @@ body{
 </table>
 <span id = instruct> Instructions </span>
 </div>
-<div  id = dull> </div>
+<div id = dull>  </div>
 <div hidden id = win class = over> You Win! <br> <span class = again> Play Again? </span> </div>
 <div hidden id = lose class = over> You Lose! <br> <span class = again> Play Again? </span></div>
 <div hidden id = tie class = over> You Tied! <br> <span class = again> Play Again? </span> </div>
-<div id = instructions hidden>
+<div id = instructions>
+  <span class = close>&#10005;</span>
   Click the START/STOP button or use the space bar to control the timer <br><br>
   Bases are awarded according to the following scale:
   <ul>
@@ -284,10 +316,19 @@ body{
     <li> 1.00: Home Run </li>
     <li> Anything Else: Out </li>
   </ul>
+  Your score appears in the top row <br><br> The computers score appears on the bottom <br><br> Play Ball!
 </div>
 
-<div hidded id = teamDiv>
-  <!-- <div id = pickWord> Select Teams </div> -->
+
+<svg id = field> </svg>
+<div id = stopwatch>
+  <div id = clock>0.00</div>
+  <div class = button id = start> START </div>
+  <div class = button id = stop hidden> STOP </div>
+</div>
+
+
+<!-- <div hidded id = teamDiv>
   <table id = teamTable>
     <tr>
       <td class = teamHead> You: </td>
@@ -362,13 +403,7 @@ body{
     <div class = diffDiv> <div id = diffHard data-col = red  data-diff = 9 class = diff> Hard </div>  </div>
   </div>
     <button hidden id = continue> Play Ball </button>
-</div>
-<svg id = field> </svg>
-<div id = stopwatch>
-  <div id = clock>0.00</div>
-  <div class = button id = start> START </div>
-  <div class = button id = stop hidden> STOP </div>
-</div>
+</div> -->
 </body>
 </html>
 
@@ -528,11 +563,11 @@ function addScore(inning, user){
 function gameOver(){
   vis = 'over'
   if(parseFloat($('#userTot').text()) > parseFloat($('#cpuTot').text())){
-    $('#win').slideToggle('slow')
+    $('#win').show()
   }else if(parseFloat($('#userTot').text()) < parseFloat($('#cpuTot').text())){
-    $('#lose').slideToggle('slow')
+    $('#lose').show()
   }else{
-    $('#tie').slideToggle('slow')
+    $('#tie').show()
   }
   $('#dull').css('opacity', '75%')
   $('#dull').show()
@@ -830,7 +865,7 @@ $('.oppTeam').click(function(){
   checkSelected()
 })
 
-diff = 0
+diff = 7
 $('.diff').click(function(){
   $('#diffEasy').css('color', 'green').css('background-color', 'white')
   $('#diffMed').css('color', 'black').css('background-color', 'white')
@@ -875,7 +910,8 @@ function startGame(){
 
   $('body').keyup(function(e){
     if(vis != 'over'){
-     if(e.keyCode == 32){
+     if(e.keyCode == 32 & space == 1){
+        event.preventDefault();
          if(vis == 'start'){
            vis = 'stop'
            $('#start').hide()
@@ -996,7 +1032,6 @@ function startGame(){
 
 //https://wiki.q-researchsoftware.com/wiki/How_to_Generate_Random_Numbers:_Poisson_Distribution#:~:text=Create%20a%20new%20JavaScript%20Variable,k%2B%2B%3B%20p%20*%3D%20Math.
 function oppScore(inning, diff){
-  console.log(diff)
   var mean = diff/9;
 
   var L = Math.exp(-mean);
@@ -1008,14 +1043,23 @@ function oppScore(inning, diff){
       p *= Math.random()
   }
 
-  scores[inning]['cpu'] = k-1
-  $('#cpu'+inning).text(k-1)
-  $('#cpuTot').text(parseFloat($('#cpuTot').text()) + (k-1))
+  setTimeout(function() {
+    scores[inning]['cpu'] = k-1
+    $('#cpu'+inning).text(k-1)
+    $('#cpuTot').text(parseFloat($('#cpuTot').text()) + (k-1))
+  }, 500);
+
 }
 
-
-
-
+$('.close').click(function(){
+  $('#instructions').hide()
+  $('#dull').hide()
+  space = 1
+})
+startGame()
+space = 0
+$('#dull').css('opacity', '.75')
+$('#dull').show()
 
 
 </script>
