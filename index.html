@@ -8,7 +8,15 @@ body{
   /* border: 2px solid black */
 }
 
-
+#clock{
+  height: 20%;
+  border: 2px solid black;
+  border-left: 0px !important;
+  border-bottom: 0px !important;
+  text-align: center;
+  font-size: 5em;
+  background-color: white;
+}
 #scoreboard{
   float: left;
   text-align: center;
@@ -21,7 +29,7 @@ body{
 #scoreboard table{
   border-collapse: collapse;
   width: 98%;
-  height: 120px;
+  height: 130px;
   margin-left: 1%;
   margin-top: 5px;
 }
@@ -43,7 +51,14 @@ body{
   height: 5vh !important
 }
 
-
+.button{
+  border: 2px solid black;
+  border-left: 0px !important;
+  text-align: center;
+  font-size: 5em;
+  height: 59.7%;
+  margin: 0px;
+}
 .button:hover{
   cursor: pointer;
 }
@@ -56,69 +71,15 @@ body{
   color: white
 }
 
-@media (min-width: 800px){
-  #field{
-    float:left;
-    clear: both;
-    height: 80%;
-  }
-  #stopwatch{
-    float:left;
-    margin: 0px
-  }
-
-  .button{
-    border: 2px solid black;
-    border-left: 0px !important;
-    text-align: center;
-    font-size: 5em;
-    height: 59.7%;
-    margin: 0px;
-  }
-
-  #clock{
-    height: 20%;
-    border: 2px solid black;
-    border-left: 0px !important;
-    border-bottom: 0px !important;
-    text-align: center;
-    font-size: 5em;
-    background-color: white;
-  }
+#field{
+  float:left;
+  clear: both;
+  height: 80%;
 }
-
-@media (max-width: 800px){
-  #field{
-    float:left;
-    clear: both;
-    height: 80%;
-  }
-  #stopwatch{
-    float:left;
-    width: 100%;
-    margin: 0px
-  }
-
-  .button{
-    border: 2px solid black;
-    border-left: 0px !important;
-    text-align: center;
-    font-size: 5em;
-    width: 100%
-    margin: 0px;
-  }
-
-  #clock{
-    border: 2px solid black;
-    border-left: 0px !important;
-    border-bottom: 0px !important;
-    text-align: center;
-    font-size: 5em;
-    background-color: white;
-  }
+#stopwatch{
+  float:left;
+  margin: 0px
 }
-
-
 .over{
   position: absolute;
   left: 30%;
@@ -486,99 +447,28 @@ mlbStaticTeamLogoNum = {
                               WSH: 120
               };
 
+$('#clock').css('width', (window.innerWidth-6.5 - parseFloat($('#field').css('height').replace('px',''))) +'px')
+$('.oppTeam, .myTeam').each(function(){
+  $(this).append($('<img>',{src:'https://www.mlbstatic.com/team-logos/'+mlbStaticTeamLogoNum[$(this).data('team')]+'.svg' ,style:'width: 20px;'}))
+})
+$('.button').each(function(){
+  $(this).css('line-height', $(this).css('height'))
+})
+$('#clock').css('line-height', $('#clock').css('height'))
 
-if(window.innerWidth > 800){
-  var width = $('#field').css('height').replace('px','')
-  var height = $('#field').css('height').replace('px','')
-  var margins = {left: 10, right: 10, top: 10, bottom: 10}
-  var xScale = d3.scaleLinear().domain([-100, 100]).range([0,width])
-  var yScale = d3.scaleLinear().domain([180, -20]).range([0,height])
+$('#instruct').mouseover(function(){
+  $('#instructions').fadeIn('fast')
+}).mouseout(function(){
+  $('#instructions').fadeOut('fast')
+})
 
-
-   fieldSVG = d3.select('#field')
-       .style('border', '2px solid black')
-       .style('background-color', '#95d1ba')
-       .attr("preserveAspectRatio", "xMinYMin meet")
-       .classed("svg-content", true)
-       .attr("viewBox", "0 0 " + width + " " + height)
-
+$(window).resize(function() {
   $('#clock').css('width', (window.innerWidth-6.5 - parseFloat($('#field').css('height').replace('px',''))) +'px')
-  $('.oppTeam, .myTeam').each(function(){
-    $(this).append($('<img>',{src:'https://www.mlbstatic.com/team-logos/'+mlbStaticTeamLogoNum[$(this).data('team')]+'.svg' ,style:'width: 20px;'}))
-  })
   $('.button').each(function(){
     $(this).css('line-height', $(this).css('height'))
   })
   $('#clock').css('line-height', $('#clock').css('height'))
-
-  $('#instruct').mouseover(function(){
-    $('#instructions').fadeIn('fast')
-  }).mouseout(function(){
-    $('#instructions').fadeOut('fast')
-  })
-
-  $(window).resize(function() {
-    if(window.innerWidth < 800){
-      $('#clock').css('width', '100%')
-      $('.button').each(function(){
-        $(this).css('line-height', $(this).css('height'))
-      })
-      $('#clock').css('line-height', $('#clock').css('height'))
-    }else{
-      $('#clock').css('width', (window.innerWidth-6.5 - parseFloat($('#field').css('height').replace('px',''))) +'px')
-      $('.button').each(function(){
-        $(this).css('line-height', $(this).css('height'))
-      })
-      $('#clock').css('line-height', $('#clock').css('height'))
-    }
-
-  })
-}else{
-  $('#field').css('width', '100%')
-  var width = $('#field').css('width').replace('px','')
-  var height = $('#field').css('width').replace('px','')
-  var margins = {left: 10, right: 10, top: 10, bottom: 10}
-  var xScale = d3.scaleLinear().domain([-100, 100]).range([0,width])
-  var yScale = d3.scaleLinear().domain([180, -20]).range([0,height])
-
-
-   fieldSVG = d3.select('#field')
-       .attr('height', '100%')
-       .style('border', '2px solid black')
-       .style('background-color', '#95d1ba')
-
-  $('#clock').css('width', '100%')
-  $('.oppTeam, .myTeam').each(function(){
-    $(this).append($('<img>',{src:'https://www.mlbstatic.com/team-logos/'+mlbStaticTeamLogoNum[$(this).data('team')]+'.svg' ,style:'width: 20px;'}))
-  })
-  $('.button').each(function(){
-    $(this).css('line-height', $(this).css('height'))
-  })
-  $('#clock').css('line-height', $('#clock').css('height'))
-
-  $('#instruct').mouseover(function(){
-    $('#instructions').fadeIn('fast')
-  }).mouseout(function(){
-    $('#instructions').fadeOut('fast')
-  })
-
-  $(window).resize(function() {
-    if(window.innerWidth < 800){
-      $('#clock').css('width', '100%')
-      $('.button').each(function(){
-        $(this).css('line-height', $(this).css('height'))
-      })
-      $('#clock').css('line-height', $('#clock').css('height'))
-    }else{
-      $('#clock').css('width', (window.innerWidth-6.5 - parseFloat($('#field').css('height').replace('px',''))) +'px')
-      $('.button').each(function(){
-        $(this).css('line-height', $(this).css('height'))
-      })
-      $('#clock').css('line-height', $('#clock').css('height'))
-    }
-
-  })
-}
+})
 
 $('#stop').hide()
 var vis = 'start'
@@ -690,7 +580,20 @@ function gameOver(){
 
 
 
+var width = $('#field').css('height').replace('px','')
+var height = $('#field').css('height').replace('px','')
+var margins = {left: 10, right: 10, top: 10, bottom: 10}
+var xScale = d3.scaleLinear().domain([-100, 100]).range([0,width])
+var yScale = d3.scaleLinear().domain([180, -20]).range([0,height])
 
+
+ fieldSVG = d3.select('#field')
+     .attr('height', '100%')
+     .style('border', '2px solid black')
+     .style('background-color', '#95d1ba')
+     .attr("preserveAspectRatio", "xMinYMin meet")
+     .classed("svg-content", true)
+     .attr("viewBox", "0 0 " + width + " " + height)
 
  var field =
      "M " + xScale(0) + " " + yScale(-40) + " " +
