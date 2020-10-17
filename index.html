@@ -1,6 +1,6 @@
 <style>
 body{
-  background-color: lightgray;
+  background-color: lightblue;
   font-family: Trebuchet MS;
   width: 100%;
   padding: 0px;
@@ -8,31 +8,7 @@ body{
   /* border: 2px solid black */
 }
 
-#clock{
-  height: 20%;
-  border: 2px solid black;
-  border-left: 0px !important;
-  border-bottom: 0px !important;
-  text-align: center;
-  font-size: 5em;
-  background-color: white;
-}
-#scoreboard{
-  float: left;
-  text-align: center;
-  width: 100%;
-  height: 150px;
-  background-color: slategray;
-  margin-bottom: 2px solid black
-}
 
-#scoreboard table{
-  border-collapse: collapse;
-  width: 98%;
-  height: 130px;
-  margin-left: 1%;
-  margin-top: 5px;
-}
 .inn{
   border: 1px solid black;
   width: 10%;
@@ -51,21 +27,98 @@ body{
   height: 5vh !important
 }
 
+
+#clock{
+  border: 2px solid black;
+  text-align: center;
+  font-size: 4em;
+  background-color: white;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  height: 120px;
+  line-height: 120px;
+  width: 350px;
+}
+
 .button{
   border: 2px solid black;
-  border-left: 0px !important;
   text-align: center;
-  font-size: 5em;
-  height: 59.7%;
+  font-size: 4em;
   margin: 0px;
+  height: 100px;
+  line-height: 100px;
+  width: 350px;
+  box-shadow: 0px 0px 5px black
 }
+
+
+@media (max-width: 1000px){
+  #clock{
+    display: inline-block;
+    border: 2px solid black;
+    text-align: center;
+    font-size: 2em;
+    background-color: white;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    height: 100px;
+    line-height: 100px;
+    width: 245px;
+  }
+
+  .button{
+    display: inline-block;
+    border: 2px solid black;
+    text-align: center;
+    font-size: 2em;
+    margin: 0px;
+    height: 100px;
+    line-height: 100px;
+    width: 245px;
+    box-shadow: 0px 0px 10px black
+  }
+  #stopwatch{
+    width: 100%;
+    text-align: center;
+    margin-left:0px !important;
+  }
+  #field{
+    display: inline-block;
+    clear: both;
+    float: none !important;
+  }
+}
+
+
+
+
+#scoreboard{
+  float: left;
+  text-align: center;
+  width: 100%;
+  height: 150px;
+}
+
+
+
+#scoreboard table{
+  border-collapse: separate;
+  width: 98%;
+  height: 130px;
+  margin-left: 1%;
+  margin-top: 5px;
+}
+
+
 .button:hover{
   cursor: pointer;
 }
+
 #start{
   background-color: green;
   color: white
 }
+
 #stop{
   background-color: red;
   color: white
@@ -74,11 +127,11 @@ body{
 #field{
   float:left;
   clear: both;
-  height: 80%;
+  margin: 10px;
 }
 #stopwatch{
   float:left;
-  margin: 0px
+  margin: 10px
 }
 .over{
   position: absolute;
@@ -92,6 +145,7 @@ body{
   text-align: center;
   box-shadow: 0px 0px 10px gray
 }
+
 #dull{
   background-color: lightgray;
   opacity: 100%;
@@ -99,6 +153,98 @@ body{
   width: 105%;
   height: 103%
 }
+
+.teamHead{
+  color: white;
+  font-size: 22px;
+  width: 2%
+}
+
+.again{
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline
+}
+
+#instruct{
+  position: absolute;
+  text-decoration: underline;
+  cursor: crosshair;
+  font-size: 18px;
+  color: black;
+  top: 0;
+  left: 0;
+  padding-right: 4px;
+  margin: 2px;
+}
+
+#instructions{
+  position: absolute;
+  width: 60%;
+  right: 20%;
+  top: 30%;
+  font-size: 18px;
+  background-color: rgb(112, 128, 144);
+  color: white;
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid white;
+  box-shadow: 0px 0px 10px gray
+}
+
+.num{
+  font-size: 30px !important;
+}
+
+.close{
+  float: right;
+  font-size: 40px;
+  padding: 0px;
+  margin: 0px;
+  cursor: pointer
+}
+
+#main{
+  width: 100%;
+  text-align: center;
+  clear: both
+}
+
+
+
+
+/* #teamDiv{
+  position: absolute;
+  width: 50%;
+  top: 10px;
+  text-align: center;
+  padding: 3px;
+}
+#teamTable{
+  border-collapse: separate;
+  margin-left: 2%;
+  text-align: center;
+  margin-left: auto;
+  overflow: scroll;
+  width: 50%;
+}
+
+#teamTable img{
+  width: 30vh  !important;
+  height: 40vh !important;
+}
+.myTeam, .oppTeam{
+  color: black;
+
+  font-size: 18px;
+  cursor: pointer;
+}
+.myTeam img:hover, .oppTeam img:hover, .teamSelected img{
+  border: 1px solid white;
+  box-shadow: 0px 0px 10px gray inset
+}
+
+
 #pickWord{
   font-size: 50px;
   margin-bottom: 3%
@@ -168,91 +314,9 @@ body{
   background-color: green;
   color: white;
   border: 3px solid white
-}
-
-#teamDiv{
-  position: absolute;
-  width: 50%;
-  top: 10px;
-  text-align: center;
-  padding: 3px;
-}
-#teamTable{
-  border-collapse: separate;
-  margin-left: 2%;
-  text-align: center;
-  margin-left: auto;
-  overflow: scroll;
-  width: 50%;
-}
-
-#teamTable img{
-  width: 30vh  !important;
-  height: 40vh !important;
-}
-.myTeam, .oppTeam{
-  color: black;
-  /* background-color: white; */
-  /* border: 1px solid black; */
-  font-size: 18px;
-  cursor: pointer;
-}
-.myTeam img:hover, .oppTeam img:hover, .teamSelected img{
-  /* background-color: green; */
-  border: 1px solid white;
-  /* color: white */
-  box-shadow: 0px 0px 10px gray inset
-}
+} */
 
 
-.teamHead{
-  color: white;
-  font-size: 22px;
-  width: 2%
-}
-
-.again{
-  font-size: 14px;
-  cursor: pointer;
-  text-decoration: underline
-}
-
-#instruct{
-  position: absolute;
-  text-decoration: underline;
-  cursor: pointer;
-  font-size: 18px;
-  color: white;
-  right: 0;
-  bottom: 0;
-  padding-right: 4px;
-  margin: 2px;
-}
-#instructions{
-  position: absolute;
-  width: 50%;
-  right: 25%;
-  top: 30%;
-  font-size: 18px;
-  background-color: rgb(112, 128, 144);
-  color: white;
-  border-radius: 10px;
-  padding: 10px;
-  border: 1px solid white;
-  box-shadow: 0px 0px 10px gray
-}
-
-.num{
-  font-size: 30px !important;
-}
-
-.close{
-  float: right;
-  font-size: 40px;
-  padding: 0px;
-  margin: 0px;
-  cursor: pointer
-}
 
 </style>
 
@@ -274,7 +338,7 @@ body{
   <th class = num> Tot </th>
 </tr>
 <tr id = user>
-  <td class = innStart id = userName> User </td>
+  <td class = innStart id = userName> Visitors </td>
   <td id = user1 class = inn> </td>
   <td id = user2 class = inn> </td>
   <td id = user3 class = inn> </td>
@@ -287,7 +351,7 @@ body{
   <td id = userTot class = 'innTot inn'> 0 </td>
 </tr>
 <tr id = cpu>
-  <td class = innStart id = cpuName> CPU </td>
+  <td class = innStart id = cpuName> Home </td>
   <td id = cpu1 class = inn> </td>
   <td id = cpu2 class = inn> </td>
   <td id = cpu3 class = inn> </td>
@@ -300,15 +364,16 @@ body{
   <td id = cpuTot class = 'innTot inn'> 0 </td>
 </tr>
 </table>
-<span id = instruct> Instructions </span>
 </div>
+<span id = instruct> Instructions </span>
+
 <div id = dull>  </div>
 <div hidden id = win class = over> You Win! <br> <span class = again> Play Again? </span> </div>
 <div hidden id = lose class = over> You Lose! <br> <span class = again> Play Again? </span></div>
 <div hidden id = tie class = over> You Tied! <br> <span class = again> Play Again? </span> </div>
 <div id = instructions>
   <span class = close>&#10005;</span>
-  Click the START/STOP button or use the space bar to control the timer <br><br>
+  Click the START/STOP button or use the space bar to control the timer. <br><br>
   The goal is to stop the timer on exactly 1 second, but you can be a little off. <br> Bases are awarded according to the following scale:
   <ul>
     <li> 0.97: Single </li>
@@ -317,17 +382,17 @@ body{
     <li> 1.00: Home Run </li>
     <li> Anything Else: Out </li>
   </ul>
-  Your score appears in the top row <br><br> The computer's score appears on the bottom <br><br> Play Ball!
+  You are the away team. Your score appears in the top row. <br><br> The computer's score appears on the bottom. <br><br> Play Ball!
 </div>
 
-
-<svg id = field> </svg>
-<div id = stopwatch>
-  <div id = clock>0.00</div>
-  <div class = button id = start> START </div>
-  <div class = button id = stop hidden> STOP </div>
+<div id = 'main'>
+  <svg id = field width=450 height=450> </svg>
+  <div id = stopwatch>
+    <div id = clock> <span id = time> 0.00 </span> </div>
+    <div class = button id = start> <span class = word> START </span> </div>
+    <div class = button id = stop hidden> <span> STOP </span> </div>
+  </div>
 </div>
-
 
 <!-- <div hidded id = teamDiv>
   <table id = teamTable>
@@ -447,14 +512,11 @@ mlbStaticTeamLogoNum = {
                               WSH: 120
               };
 
-$('#clock').css('width', (window.innerWidth-6.5 - parseFloat($('#field').css('height').replace('px',''))) +'px')
+
 $('.oppTeam, .myTeam').each(function(){
   $(this).append($('<img>',{src:'https://www.mlbstatic.com/team-logos/'+mlbStaticTeamLogoNum[$(this).data('team')]+'.svg' ,style:'width: 20px;'}))
 })
-$('.button').each(function(){
-  $(this).css('line-height', $(this).css('height'))
-})
-$('#clock').css('line-height', $('#clock').css('height'))
+
 
 $('#instruct').mouseover(function(){
   $('#instructions').fadeIn('fast')
@@ -462,13 +524,6 @@ $('#instruct').mouseover(function(){
   $('#instructions').fadeOut('fast')
 })
 
-$(window).resize(function() {
-  $('#clock').css('width', (window.innerWidth-6.5 - parseFloat($('#field').css('height').replace('px',''))) +'px')
-  $('.button').each(function(){
-    $(this).css('line-height', $(this).css('height'))
-  })
-  $('#clock').css('line-height', $('#clock').css('height'))
-})
 
 $('#stop').hide()
 var vis = 'start'
@@ -580,20 +635,16 @@ function gameOver(){
 
 
 
-var width = $('#field').css('height').replace('px','')
-var height = $('#field').css('height').replace('px','')
+var width = $('#field').attr('width')
+var height = $('#field').attr('height')
 var margins = {left: 10, right: 10, top: 10, bottom: 10}
 var xScale = d3.scaleLinear().domain([-100, 100]).range([0,width])
 var yScale = d3.scaleLinear().domain([180, -20]).range([0,height])
 
 
  fieldSVG = d3.select('#field')
-     .attr('height', '100%')
      .style('border', '2px solid black')
      .style('background-color', '#95d1ba')
-     .attr("preserveAspectRatio", "xMinYMin meet")
-     .classed("svg-content", true)
-     .attr("viewBox", "0 0 " + width + " " + height)
 
  var field =
      "M " + xScale(0) + " " + yScale(-40) + " " +
