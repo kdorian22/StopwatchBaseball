@@ -8,15 +8,7 @@ body{
   /* border: 2px solid black */
 }
 
-#clock{
-  height: 20%;
-  border: 2px solid black;
-  border-left: 0px !important;
-  border-bottom: 0px !important;
-  text-align: center;
-  font-size: 5em;
-  background-color: white;
-}
+
 #scoreboard{
   float: left;
   text-align: center;
@@ -29,7 +21,7 @@ body{
 #scoreboard table{
   border-collapse: collapse;
   width: 98%;
-  height: 130px;
+  height: 120px;
   margin-left: 1%;
   margin-top: 5px;
 }
@@ -42,7 +34,8 @@ body{
 }
 .innStart{
   font-size: 25px;
-  text-align: center
+  text-align: center;
+  padding: 5px
 }
 
 .innStart img{
@@ -50,14 +43,7 @@ body{
   height: 5vh !important
 }
 
-.button{
-  border: 2px solid black;
-  border-left: 0px !important;
-  text-align: center;
-  font-size: 5em;
-  height: 59.7%;
-  margin: 0px;
-}
+
 .button:hover{
   cursor: pointer;
 }
@@ -70,15 +56,69 @@ body{
   color: white
 }
 
-#field{
-  float:left;
-  clear: both;
-  height: 80%;
+@media (min-width: 800px){
+  #field{
+    float:left;
+    clear: both;
+    height: 80%;
+  }
+  #stopwatch{
+    float:left;
+    margin: 0px
+  }
+
+  .button{
+    border: 2px solid black;
+    border-left: 0px !important;
+    text-align: center;
+    font-size: 5em;
+    height: 59.7%;
+    margin: 0px;
+  }
+
+  #clock{
+    height: 20%;
+    border: 2px solid black;
+    border-left: 0px !important;
+    border-bottom: 0px !important;
+    text-align: center;
+    font-size: 5em;
+    background-color: white;
+  }
 }
-#stopwatch{
-  float:left;
-  margin: 0px
+
+@media (max-width: 800px){
+  #field{
+    float:left;
+    clear: both;
+    height: 80%;
+  }
+  #stopwatch{
+    float:left;
+    width: 100%;
+    margin: 0px
+  }
+
+  .button{
+    border: 2px solid black;
+    border-left: 0px !important;
+    text-align: center;
+    font-size: 5em;
+    width: 100%
+    margin: 0px;
+  }
+
+  #clock{
+    border: 2px solid black;
+    border-left: 0px !important;
+    border-bottom: 0px !important;
+    text-align: center;
+    font-size: 5em;
+    background-color: white;
+  }
 }
+
+
 .over{
   position: absolute;
   left: 30%;
@@ -273,7 +313,7 @@ body{
   <th class = num> Tot </th>
 </tr>
 <tr id = user>
-  <td class = innStart id = userName>  </td>
+  <td class = innStart id = userName> User </td>
   <td id = user1 class = inn> </td>
   <td id = user2 class = inn> </td>
   <td id = user3 class = inn> </td>
@@ -286,7 +326,7 @@ body{
   <td id = userTot class = 'innTot inn'> 0 </td>
 </tr>
 <tr id = cpu>
-  <td class = innStart id = cpuName>  </td>
+  <td class = innStart id = cpuName> CPU </td>
   <td id = cpu1 class = inn> </td>
   <td id = cpu2 class = inn> </td>
   <td id = cpu3 class = inn> </td>
@@ -308,7 +348,7 @@ body{
 <div id = instructions>
   <span class = close>&#10005;</span>
   Click the START/STOP button or use the space bar to control the timer <br><br>
-  Bases are awarded according to the following scale:
+  The goal is to stop the timer on exactly 1 second, but you can be a little off. <br> Bases are awarded according to the following scale:
   <ul>
     <li> 0.97: Single </li>
     <li> 0.98: Double </li>
@@ -316,7 +356,7 @@ body{
     <li> 1.00: Home Run </li>
     <li> Anything Else: Out </li>
   </ul>
-  Your score appears in the top row <br><br> The computers score appears on the bottom <br><br> Play Ball!
+  Your score appears in the top row <br><br> The computer's score appears on the bottom <br><br> Play Ball!
 </div>
 
 
@@ -446,28 +486,99 @@ mlbStaticTeamLogoNum = {
                               WSH: 120
               };
 
-$('#clock').css('width', (window.innerWidth-6.5 - parseFloat($('#field').css('height').replace('px',''))) +'px')
-$('.oppTeam, .myTeam').each(function(){
-  $(this).append($('<img>',{src:'https://www.mlbstatic.com/team-logos/'+mlbStaticTeamLogoNum[$(this).data('team')]+'.svg' ,style:'width: 20px;'}))
-})
-$('.button').each(function(){
-  $(this).css('line-height', $(this).css('height'))
-})
-$('#clock').css('line-height', $('#clock').css('height'))
 
-$('#instruct').mouseover(function(){
-  $('#instructions').fadeIn('fast')
-}).mouseout(function(){
-  $('#instructions').fadeOut('fast')
-})
+if(window.innerWidth > 800){
+  var width = $('#field').css('height').replace('px','')
+  var height = $('#field').css('height').replace('px','')
+  var margins = {left: 10, right: 10, top: 10, bottom: 10}
+  var xScale = d3.scaleLinear().domain([-100, 100]).range([0,width])
+  var yScale = d3.scaleLinear().domain([180, -20]).range([0,height])
 
-$(window).resize(function() {
+
+   fieldSVG = d3.select('#field')
+       .style('border', '2px solid black')
+       .style('background-color', '#95d1ba')
+       .attr("preserveAspectRatio", "xMinYMin meet")
+       .classed("svg-content", true)
+       .attr("viewBox", "0 0 " + width + " " + height)
+
   $('#clock').css('width', (window.innerWidth-6.5 - parseFloat($('#field').css('height').replace('px',''))) +'px')
+  $('.oppTeam, .myTeam').each(function(){
+    $(this).append($('<img>',{src:'https://www.mlbstatic.com/team-logos/'+mlbStaticTeamLogoNum[$(this).data('team')]+'.svg' ,style:'width: 20px;'}))
+  })
   $('.button').each(function(){
     $(this).css('line-height', $(this).css('height'))
   })
   $('#clock').css('line-height', $('#clock').css('height'))
-})
+
+  $('#instruct').mouseover(function(){
+    $('#instructions').fadeIn('fast')
+  }).mouseout(function(){
+    $('#instructions').fadeOut('fast')
+  })
+
+  $(window).resize(function() {
+    if(window.innerWidth < 800){
+      $('#clock').css('width', '100%')
+      $('.button').each(function(){
+        $(this).css('line-height', $(this).css('height'))
+      })
+      $('#clock').css('line-height', $('#clock').css('height'))
+    }else{
+      $('#clock').css('width', (window.innerWidth-6.5 - parseFloat($('#field').css('height').replace('px',''))) +'px')
+      $('.button').each(function(){
+        $(this).css('line-height', $(this).css('height'))
+      })
+      $('#clock').css('line-height', $('#clock').css('height'))
+    }
+
+  })
+}else{
+  $('#field').css('width', '100%')
+  var width = $('#field').css('width').replace('px','')
+  var height = $('#field').css('width').replace('px','')
+  var margins = {left: 10, right: 10, top: 10, bottom: 10}
+  var xScale = d3.scaleLinear().domain([-100, 100]).range([0,width])
+  var yScale = d3.scaleLinear().domain([180, -20]).range([0,height])
+
+
+   fieldSVG = d3.select('#field')
+       .attr('height', '100%')
+       .style('border', '2px solid black')
+       .style('background-color', '#95d1ba')
+
+  $('#clock').css('width', '100%')
+  $('.oppTeam, .myTeam').each(function(){
+    $(this).append($('<img>',{src:'https://www.mlbstatic.com/team-logos/'+mlbStaticTeamLogoNum[$(this).data('team')]+'.svg' ,style:'width: 20px;'}))
+  })
+  $('.button').each(function(){
+    $(this).css('line-height', $(this).css('height'))
+  })
+  $('#clock').css('line-height', $('#clock').css('height'))
+
+  $('#instruct').mouseover(function(){
+    $('#instructions').fadeIn('fast')
+  }).mouseout(function(){
+    $('#instructions').fadeOut('fast')
+  })
+
+  $(window).resize(function() {
+    if(window.innerWidth < 800){
+      $('#clock').css('width', '100%')
+      $('.button').each(function(){
+        $(this).css('line-height', $(this).css('height'))
+      })
+      $('#clock').css('line-height', $('#clock').css('height'))
+    }else{
+      $('#clock').css('width', (window.innerWidth-6.5 - parseFloat($('#field').css('height').replace('px',''))) +'px')
+      $('.button').each(function(){
+        $(this).css('line-height', $(this).css('height'))
+      })
+      $('#clock').css('line-height', $('#clock').css('height'))
+    }
+
+  })
+}
 
 $('#stop').hide()
 var vis = 'start'
@@ -579,20 +690,7 @@ function gameOver(){
 
 
 
-var width = $('#field').css('height').replace('px','')
-var height = $('#field').css('height').replace('px','')
-var margins = {left: 10, right: 10, top: 10, bottom: 10}
-var xScale = d3.scaleLinear().domain([-100, 100]).range([0,width])
-var yScale = d3.scaleLinear().domain([180, -20]).range([0,height])
 
-
- fieldSVG = d3.select('#field')
-     .attr('height', '100%')
-     .style('border', '2px solid black')
-     .style('background-color', '#95d1ba')
-     .attr("preserveAspectRatio", "xMinYMin meet")
-     .classed("svg-content", true)
-     .attr("viewBox", "0 0 " + width + " " + height)
 
  var field =
      "M " + xScale(0) + " " + yScale(-40) + " " +
