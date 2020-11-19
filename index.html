@@ -87,6 +87,12 @@ body{
     clear: both;
     float: none !important;
   }
+  #main{
+    min-height: 600px;
+    display: block !important;
+
+  }
+
 }
 
 
@@ -145,13 +151,18 @@ body{
   text-align: center;
   box-shadow: 0px 0px 10px gray
 }
-
+#all{
+  min-height: 100vh;
+  position: relative
+}
 #dull{
   background-color: lightgray;
   opacity: 100%;
   position: absolute;
   width: 105%;
-  height: 103%
+  min-height: 100%;
+  z-index:100
+
 }
 
 .teamHead{
@@ -169,13 +180,14 @@ body{
 #instruct{
   position: absolute;
   text-decoration: underline;
-  cursor: crosshair;
+  cursor: help;
   font-size: 18px;
   color: black;
-  right: 0;
-  bottom: 0;
+  left: 0;
+  top: 0;
   padding-right: 4px;
   margin: 2px;
+  z-index:1
 }
 
 #instructions{
@@ -189,7 +201,9 @@ body{
   border-radius: 10px;
   padding: 10px;
   border: 1px solid white;
-  box-shadow: 0px 0px 10px gray
+  box-shadow: 0px 0px 10px gray;
+  z-index:1000
+
 }
 
 .num{
@@ -207,7 +221,10 @@ body{
 #main{
   width: 100%;
   text-align: center;
-  clear: both
+  clear: both;
+  min-height: 500px;
+  display: flex;
+  justify-content: center;
 }
 
 
@@ -322,6 +339,11 @@ body{
 
 <html>
 <body>
+
+<div id = all>
+
+<div id = dull>  </div>
+
 <div id = scoreboard>
 <table id = scoreTable>
 <tr>
@@ -365,16 +387,14 @@ body{
 </tr>
 </table>
 </div>
-<span id = instruct> Instructions </span>
 
-<div id = dull>  </div>
 <div hidden id = win class = over> You Win! <br> <span class = again> Play Again? </span> </div>
 <div hidden id = lose class = over> You Lose! <br> <span class = again> Play Again? </span></div>
 <div hidden id = tie class = over> You Tied! <br> <span class = again> Play Again? </span> </div>
 <div id = instructions>
   <span class = close>&#10005;</span>
   Click the START/STOP button or use the space bar to control the timer. <br><br>
-  The goal is to stop the timer on exactly 1 second, but you can be a little off. <br> Bases are awarded according to the following scale:
+  The goal is to stop the timer on exactly 1 second, but you can be a little off. <br><br> Bases are awarded according to the following scale:
   <ul>
     <li> 0.97: Single </li>
     <li> 0.98: Double </li>
@@ -382,7 +402,7 @@ body{
     <li> 1.00: Home Run </li>
     <li> Anything Else: Out </li>
   </ul>
-  You are the away team. Your score appears in the top row. <br><br> The computer's score appears on the bottom. <br><br> Play Ball!
+  You are the away team. Your score appears in the top row of the scoreboard. <br><br> The computer's score appears on the bottom. <br><br> Play Ball!
 </div>
 
 <div id = 'main'>
@@ -392,6 +412,9 @@ body{
     <div class = button id = start> <span class = word> START </span> </div>
     <div class = button id = stop hidden> <span> STOP </span> </div>
   </div>
+</div>
+
+<span id = instruct> Instructions </span>
 </div>
 
 <!-- <div hidded id = teamDiv>
@@ -520,9 +543,16 @@ $('.oppTeam, .myTeam').each(function(){
 
 $('#instruct').mouseover(function(){
   $('#instructions').fadeIn('fast')
+  $('#dull').hide()
 }).mouseout(function(){
   $('#instructions').fadeOut('fast')
+  $('#dull').hide()
 })
+
+// $('#instruct').click(function(){
+//   $('#instructions').fadeOut('fast')
+//   $('#dull').hide()
+// })
 
 
 $('#stop').hide()
