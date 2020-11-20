@@ -476,9 +476,13 @@ function startGame(){
                  batterUp(nextBatter)
                }else if(parseFloat($('#cpuTot').text()) <= parseFloat($('#userTot').text())){
                  oppScore('9', diff)
-                 gameOver()
+                 setTimeout(function() {
+                   gameOver()
+                 }, 750);
                }else{
-                 gameOver()
+                 setTimeout(function() {
+                   gameOver()
+                 }, 750);
                }
              }else{
                batterUp(nextBatter)
@@ -531,9 +535,13 @@ function startGame(){
           batterUp(nextBatter)
         }else if(parseFloat($('#cpuTot').text()) <= parseFloat($('#userTot').text())){
           oppScore('9', diff)
-          gameOver()
+          setTimeout(function() {
+            gameOver()
+          }, 750);
         }else{
-          gameOver()
+          setTimeout(function() {
+            gameOver()
+          }, 750);
         }
       }else{
         batterUp(nextBatter)
@@ -564,6 +572,10 @@ function oppScore(inning, diff){
     $('#cpu'+inning).text(k-1)
     $('#cpuTot').text(parseFloat($('#cpuTot').text()) + (k-1))
   }, 500);
+
+  if(inning == '9'){
+    console.log('here')
+  }
 
 }
 
