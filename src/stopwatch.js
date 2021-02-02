@@ -124,64 +124,113 @@ var xScale = d3.scaleLinear().domain([-100, 100]).range([0,width])
 var yScale = d3.scaleLinear().domain([180, -20]).range([0,height])
 
 
- fieldSVG = d3.select('#field')
-     .style('border', '2px solid black')
-     .style('background-color', '#95d1ba')
+fieldSVG = d3.select('#field')
+    .style('border', '2px solid black')
+    .style('background-color', '#95d1ba')
 
- var field =
-     "M " + xScale(0) + " " + yScale(-40) + " " +
-     "L " + xScale(50) + " " + yScale(-20) + " " +
-     "L " + xScale(237) + " " + yScale(222) + " " +
-     "L " + xScale(145) + " " + yScale(329) + " " +
-     "L " + xScale(68) + " " + yScale(370) + " " +
-     "L " + xScale(0) + " " + yScale(390) + " " +
-     "L " + xScale(-68) + " " + yScale(370) + " " +
-     "L " + xScale(-145) + " " + yScale(329) + " " +
-     "L " + xScale(-237) + " " + yScale(222) + " " +
-     "L " + xScale(-50) + " " + yScale(-20) + " " +
-     "L " + xScale(0) + " " + yScale(-40)
+var infield_dirt =
+	      "M " + xScale(0) + " " + yScale(-5) + " " +
+	      "L " + xScale(-100) + " " + yScale(95) + " " +
+	      "Q " + xScale(0) + ", " + yScale(220) + " " + + xScale(100) + ", " + yScale(95) + "Z "
 
- var infield_dirt =
-     "M " + xScale(85) + " " + yScale(80) + " " +
-     "L " + xScale(0) + " " + yScale(130) + " " +
-     "L " + xScale(-85) + " " + yScale(80) + " " +
-     "L " + xScale(0) + " " + yScale( -5) + " " +
-     "L " + xScale(85) + " " + yScale(80) + " " +
-     "C " + xScale(85) + " " + yScale(170) + " " + xScale(-85) + " " + yScale(170) + " " + xScale(-85) + " " + yScale(80) + " " +
-     "L " + xScale(0) + " " + yScale(-5)
+var foul_lines =
+   "M " + xScale(-200) + " " + yScale(200) + " " +
+   "L " + xScale(0) + " " + yScale(0) + " " +
+   "L " + xScale(200) + " " + yScale(200) + " " +
+   "L " + xScale(0) + " " + yScale(0)
 
- var infield_grass =
-     "M " + xScale(0) + " " + yScale(5) + " " +
-     "L " + xScale(55) + " " + yScale(60) + " " +
-     "L " + xScale(0) + " " + yScale(115) + " " +
-     "L " + xScale(-55) + " " + yScale(60)
+var infield_grass =
+   "M " + xScale(0) + " " + yScale(10) + " " +
+   "L " + xScale(-50) + " " + yScale(60) + " " +
+   "L " + xScale(0) + " " + yScale(110) + " " +
+   "L " + xScale(50) + ", " + yScale(60) + "Z "
 
 
- var foul_lines =
-     "M " + xScale(-239) + " " + yScale(239) + " " +
-     "L " + xScale(0) + " " + yScale(0) + " " +
-     "L " + xScale(239) + " " + yScale(239) + " " +
-     "L " + xScale(0) + " " + yScale(0)
+var foul_lines =
+    "M " + xScale(-239) + " " + yScale(239) + " " +
+    "L " + xScale(0) + " " + yScale(0) + " " +
+    "L " + xScale(239) + " " + yScale(239) + " " +
+    "L " + xScale(0) + " " + yScale(0)
 
 
- fieldSVG.append("path")
-     .attr("id", "field-inner-outline")
-     .attr("d", field)
-     .style("fill", "#95d1ba")
-     .style("stroke", "#95d1ba");
- fieldSVG.append("path")
-     .attr("id", "field-infield-dirt")
-     .attr("d", infield_dirt)
-     .style("fill", "#ded8cd");
- fieldSVG.append("path")
-     .attr("id", "#72ffaa")
-     .attr("d", infield_grass)
-     .style("fill", "#95d1ba");
- fieldSVG.append("path")
-     .attr("id", "field-foul-line")
-     .attr("d", foul_lines)
-     .style("stroke", "white")
-     .style('stroke-width', 2);
+
+// inf dirt
+fieldSVG.append("path")
+  .attr("d", infield_dirt)
+  .attr('class', 'fieldPath')
+  .style("fill", "#ded8cd");
+
+//infield grass
+fieldSVG.append('path')
+.attr('class', 'fieldPath')
+.attr('fill', "#95d1ba")
+.attr('d', infield_grass)
+
+  //mound
+fieldSVG.append('circle')
+  .attr('cx', xScale(0))
+  .attr('cy', yScale(60.5))
+  .attr('r', 10)
+  .attr('class', 'fieldPath')
+  .style("fill", "#ded8cd")
+  .style('stroke', 'white')
+  .style('stroke-width', '2')
+
+// rubber
+fieldSVG.append("line")
+  .attr("x1", xScale(-2))
+  .attr("x2", xScale(2))
+  .attr("y1", yScale(60.5))
+  .attr("y2", yScale(60.5))
+  .attr('class', 'fieldPath')
+  .style("stroke", "white")
+  .style('stroke-width', '2')
+
+  // foul lines
+fieldSVG.append("path")
+  .attr("d", foul_lines)
+  .attr('class', 'fieldPath')
+  .style("stroke", "white")
+  .style('stroke-width', '3')
+
+
+  // // home plate
+  // fieldSVG.append('circle')
+  //   .attr('cx', xScale(0))
+  //   .attr('cy', yScale(0))
+  //   .attr('r', 10)
+  //   .attr('class', 'fieldPath')
+  //   .style("fill", "#ded8cd")
+  //   .style('stroke', 'white')
+  //   .style('stroke-width', '2')
+
+//bases
+fieldSVG.append('rect')
+  .attr('x', 0)
+  .attr('y', 0)
+  .attr('width', 5)
+  .attr('height', 5)
+  .attr('transform', `translate(${width-85}, 260)rotate(45)`)
+  .attr('class', 'fieldPath')
+  .style("fill", "white")
+
+fieldSVG.append('rect')
+  .attr('x', 0)
+  .attr('y', 0)
+  .attr('width', 5)
+  .attr('height', 5)
+  .attr('transform', `translate(${85}, 260)rotate(45)`)
+  .attr('class', 'fieldPath')
+  .style("fill", "white")
+
+fieldSVG.append('rect')
+  .attr('x', 0)
+  .attr('y', 0)
+  .attr('width', 5)
+  .attr('height', 5)
+  .attr('transform', `translate(${width/2}, ${115})rotate(45)`)
+  .attr('class', 'fieldPath')
+  .style("fill", "white")
 
  var battersList = []
  for(var key in batters){
